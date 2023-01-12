@@ -1,0 +1,19 @@
+Homepage: This is the main landing page for the website and should provide a clear overview of the products or services offered, as well as any promotions or sales that are currently taking place.
+
+Product Listing page: This page displays all the available products or services in a catalog format, with the ability to filter or sort by various criteria such as price or category.
+
+Product Detail page: This page provides detailed information about a specific product or service, including images, descriptions, pricing, and options such as size or color.
+
+Shopping Cart page: This page displays all the items that a customer has added to their cart, and allows them to adjust the quantities or remove items.
+
+Checkout page: This is the final step in the purchasing process and allows the customer to review their order, enter their shipping and billing information, and submit their payment.
+
+Order Confirmation page: This page confirms the customer's order has been successfully placed and provides them with a summary of their order, including the total cost and expected delivery date.
+
+Account page: This page allows customers to view their previous orders, update their shipping and billing information, and change their account settings.
+
+Sign-in/Sign-up page: This page lets customers create an account or log in to their existing account.
+
+Contact page: This page contains the contact information of the ecommerce store, such as phone number, email, and address.
+
+Terms and Conditions page: This page contains the terms and conditions of the ecommerce store.
