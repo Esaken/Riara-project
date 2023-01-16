@@ -1,0 +1,26 @@
+
+# Define a list of keywords for different topics
+products_keywords = ["products", "offerings", "goods"]
+services_keywords = ["services", "help", "support"]
+
+# Define a list of responses for different topics
+products_responses = ["We offer a wide range of products, including electronics, home goods, and clothing. What specific product are you interested in?"]
+services_responses = ["We provide several services, including technical support, consulting, and training. How can we assist you?"]
+
+# Define a default response for when the chatbot doesn't understand the user input
+default_response = "I'm sorry, I don't understand what you're asking. Can you please rephrase your question or type 'help' for more information."
+
+while True:
+    user_input = input("User: ")
+
+    # Check if the user input matches any of the keywords for products
+    if any(keyword in user_input for keyword in products_keywords):
+        print("Chatbot: " + random.choice(products_responses))
+
+    # Check if the user input matches any of the keywords for services
+    elif any(keyword in user_input for keyword in services_keywords):
+        print("Chatbot: " + random.choice(services_responses))
+
+    # If the user input doesn't match any of the keywords, respond with the default response
+    else:
+        print("Chatbot: " + default_response)
