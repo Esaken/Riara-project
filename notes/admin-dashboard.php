@@ -93,6 +93,7 @@ The edit-product.php and delete-product.php are separate PHP files that handle t
       header("Location: index.php");
     }
   ?>
+
   <!DOCTYPE html>
   <html>
     <head>
