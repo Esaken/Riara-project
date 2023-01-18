@@ -24,7 +24,7 @@ if(isset($_POST['submit'])){
     $password = $_POST['password'];
     $type = $_POST['type'];
 
-    $connection = mysqli_connect("hostname","ksau23#!","Haemo99#!","e-shop");
+    $connection = mysqli_connect("localhost","ksau23#!","Haemo99#!","e-shop");
     $query = "INSERT INTO users (email, password, type) VALUES ('$email', '$password', '$type')";
     $result = mysqli_query($connection, $query);
     

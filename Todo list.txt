@@ -1,0 +1,3 @@
+1) Style sign in and sign up page
+2) just copy what ive done to the insert product.php with the ajax
+3) the image is still not being uploaded to the database hence the [roducts page not working

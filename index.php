@@ -1,6 +1,3 @@
-<?
-php
-?>
 
 
 <!DOCTYPE html>
@@ -16,7 +13,7 @@ php
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
   <!-- Custom StyleSheet -->
   <link rel="stylesheet" href="./CSS/homepage.css" />
-  <title>ASHALI ONLINE STORE</title>
+  <title>Kamikunji Shop</title>
 </head>
 
 <body>
@@ -55,7 +52,7 @@ php
       <div class="benefit">
         <span class="icon"><i class="bx bx-purchase-tag"></i></span>
         <h4>Free Shipping</h4>
-        <span class="text">Capped at $16 per order</span>
+        <span class="text">Capped at 4500 Ksh per order</span>
       </div>
 
       <div class="benefit">
@@ -296,8 +293,6 @@ php
 
       <div class="social-links">
         <a href=""><i class="fab fa-linkedin"></i></a>
-        <a href=""><i class="fab fa-behance"></i></a>
-        <a href=""><i class="fab fa-dribbble"></i></a>
         <a href=""><i class="fab fa-instagram"></i></a>
       </div>
     </div>
@@ -306,3 +301,20 @@ php
 </body>
 
 </html>
+
+
+redirection of the user based on their account type. -->
+<?php
+session_start();
+
+if(isset($_SESSION['email'])){
+    if($_SESSION['type'] == 'admin'){
+        header("Location: admin.php");
+    } else {
+        header("Location: customer.php");
+    }
+} else {
+    header("Location: signin.php");
+}
+
+?>

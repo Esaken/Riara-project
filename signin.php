@@ -12,7 +12,6 @@
 
 
 
-
  <?php
 session_start();
 
@@ -20,7 +19,7 @@ if(isset($_POST['submit'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $connection = mysqli_connect("hostname","ksau23#!","Haemo99#!","e-shop");
+    $connection = mysqli_connect("localhost","ksau23#!","Haemo99#!","e-shop");
 
     $query = "SELECT * FROM users WHERE email='$email' AND password='$password'";
     $result = mysqli_query($connection, $query);
@@ -37,16 +36,3 @@ if(isset($_POST['submit'])){
 ?>
 
 
-<?php
-session_start();
-
-if(isset($_SESSION['email'])){
-    if($_SESSION['type'] == 'admin'){
-        header("Location: admin.php");
-    } else {
-        header("Location: customer.php");
-    }
-} else {
-    header("Location: signin.php");
-}
-?>
