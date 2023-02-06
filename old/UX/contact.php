@@ -1,76 +1,40 @@
-<?php
-if (isset($_POST['Email'])) {
+from flask import Flask, request, render_template
+import smtplib
 
-    
-    $email_to = "info@kencreation.co.ke";
-    $email_subject = "New form submissions";
+app = Flask(__name__)
 
-    function problem($error)
-    {
-        echo "We're sorry, but there were error(s) found with the form you submitted. ";
-        echo "These errors appear below.<br><br>";
-        echo $error . "<br><br>";
-        echo "Please go back and fix these errors.<br><br>";
-        die();
-    }
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-    // validation expected data exists
-    if (
-        !isset($_POST['Name']) ||
-        !isset($_POST['Email']) ||
-        !isset($_POST['Message'])
-    ) {
-        problem ( "We're sorry, but there appears to be a problem with the form you submitted.");
-    }
+@app.route('/submit', methods=['POST'])
+def submit():
+    if request.method == 'POST':
+        name = request.form['Name']
+        email = request.form['Email']
+        message = request.form['Message']
 
-    $name = $_POST['Name']; // required
-    $email = $_POST['Email']; // required
-    $message = $_POST['Message']; // required
+        if not name or not email or not message:
+            return "Please fill all the fields."
 
-    $error_message = "";
-    $email_exp = '/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/';
+        if "@" not in email:
+            return "Please enter a valid email address."
 
-    if (!preg_match($email_exp, $email)) {
-        $error_message .= 'The Email address you entered does not appear to be valid.<br>';
-    }
+        try:
+            server = smtplib.SMTP('smtp.gmail.com', 587)
+            server.ehlo()
+            server.starttls()
+            server.ehlo()
+            server.login('youremail@gmail.com', 'yourpassword')
+            server.sendmail(
+                'youremail@gmail.com',
+                email,
+                "Subject: Form Submission\n\nName: " + name + "\nEmail: " + email + "\nMessage: " + message
+            )
+            server.close()
+            return "Thanks for getting in touch. We'll get back to you soon."
+        except:
+            return "Error sending the email. Please try again later."
 
-    $string_exp = "/^[A-Za-z .'-]+$/";
-
-    if (!preg_match($string_exp, $name)) {
-        $error_message .= 'The Name you entered does not appear to be valid.<br>';
-    }
-
-    if (strlen($message) < 2) {
-        $error_message .= 'The Message you entered do not appear to be valid.<br>';
-    }
-
-    if (strlen($error_message) > 0) {
-        problem($error_message);
-    }
-
-    $email_message = "Form details below.\n\n";
-
-    function clean_string($string)
-    {
-        $bad = array("content-type", "bcc:", "to:", "cc:", "href");
-        return str_replace($bad, "", $string);
-    }
-
-    $email_message .= "Name: " . clean_string($name) . "\n";
-    $email_message .= "Email: " . clean_string($email) . "\n";
-    $email_message .= "Message: " . clean_string($message) . "\n";
-
-    // create email headers
-    $headers = 'From: ' . $email . "\r\n" .
-        'Reply-To: ' . $email . "\r\n" .
-        'X-Mailer: PHP/' . phpversion();
-    @mail($email_to, $email_subject, $email_message, $headers);
-?>
-
-    <!-- INCLUDE YOUR SUCCESS MESSAGE BELOW -->
-
-    Thanks for getting in touch. We'll get back to you soon.
-
-<?php
-}
-?>
+if __name__ == '__main__':
+    app.run()

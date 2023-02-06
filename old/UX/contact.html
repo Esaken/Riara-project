@@ -1,39 +1,67 @@
-<!DOCTYPE html>
-<head>
-    <title>Contact Form</title>
+from flask import Flask, request
 
-    <!-- links -->
-    <link rel="stylesheet" href="../css/contact.css">
-</head>
-<body>
-    <h3>Contact us</h3>
-    <form id="fcf-form-id" class="fcf-form-class" method="post" action="contact-form-process.php">
-            <label for="Name" class="fcf-label">Your name</label>
-            <div class="fcf-input-group">
-                <input type="text" id="Name" name="Name" class="fcf-form-control" required>
-            </div>
-        <div class="fcf-form-group">
-            <label for="Email" class="fcf-label">Your email address</label>
-            <div class="fcf-input-group">
-                <input type="email" id="Email" name="Email" class="fcf-form-control" required>
-            </div>
+app = Flask(__name__)
 
-            <label for="contact reason">Contact Reason</label>
-            <select id="contact reason" name="contact reason">
-              <option value="sales">Sales</option>
-              <option value="help">Help</option>
-              <option value="billing">Payment</option>
-            </select>
+@app.route("/")
+def contact_form():
+    return '''
+    <!DOCTYPE html>
+    <head>
+        <title>Contact Form</title>
 
- 
-        <div class="fcf-form-group">
-            <label for="Message" class="fcf-label">Your message</label>
-            <div class="fcf-input-group">
-                <textarea id="Message" name="Message" class="fcf-form-control" rows="6" maxlength="3000" required></textarea>
+        <!-- links -->
+        <link rel="stylesheet" href="../css/contact.css">
+    </head>
+    <body>
+        <h3>Contact us</h3>
+        <form id="fcf-form-id" class="fcf-form-class" method="post" action="submit">
+                <label for="Name" class="fcf-label">Your name</label>
+                <div class="fcf-input-group">
+                    <input type="text" id="Name" name="Name" class="fcf-form-control" required>
+                </div>
+            <div class="fcf-form-group">
+                <label for="Email" class="fcf-label">Your email address</label>
+                <div class="fcf-input-group">
+                    <input type="email" id="Email" name="Email" class="fcf-form-control" required>
+                </div>
+
+                <label for="contact reason">Contact Reason</label>
+                <select id="contact reason" name="contact reason">
+                  <option value="sales">Sales</option>
+                  <option value="help">Help</option>
+                  <option value="billing">Payment</option>
+                </select>
+
+     
+            <div class="fcf-form-group">
+                <label for="Message" class="fcf-label">Your message</label>
+                <div class="fcf-input-group">
+                    <textarea id="Message" name="Message" class="fcf-form-control" rows="6" maxlength="3000" required></textarea>
+                </div>
             </div>
-        </div>
-        <div class="fcf-form-group">
-            <button type="submit" id="fcf-button" class="fcf-btn fcf-btn-primary fcf-btn-lg fcf-btn-block">Send</button>
-        </div>
-</body>
-</html>
+            <div class="fcf-form-group">
+                <button type="submit" id="fcf-button" class="fcf-btn fcf-btn-primary fcf-btn-lg fcf-btn-block">Send</button>
+            </div>
+    </body>
+    </html>
+    '''
+
+@app.route("/submit", methods=['POST'])
+def submit():
+    name = request.form.get('Name')
+    email = request.form.get('Email')
+    reason = request.form.get('contact reason')
+    message = request.form.get('Message')
+
+    # Code to process form data can go here
+
+    return '''
+    <h3>Thank you for your submission!</h3>
+    <p>Name: {}</p>
+    <p>Email: {}</p>
+    <p>Reason for contact: {}</p>
+    <p>Message: {}</p>
+    '''.format(name, email, reason, message)
+
+if __name__ == '__main__':
+    app.run()
